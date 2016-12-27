@@ -43,12 +43,12 @@ Thailand has a constitutional monarchy currently headed by King Bhumibol Adulyad
 [tgl_insert id="1q8o2t5pzHLUVH4VxWj1vmxlhpbeWTpHNUp1-UHwdDTQ" path="quickFacts" renderer="facts"]
 
 // Output
-**Name:**	Kingdom of Thailand
-**Population:**	67 million
-**Capital:**	Bangkok
-**Language:**	Thai
-**Currency:**	Baht (THB)
-**Time zone:**	ICT (UTC +7)
+Name:		Kingdom of Thailand
+Population:	67 million
+Capital:	Bangkok
+Language:	Thai
+Currency:	Baht (THB)
+Time zone:	ICT (UTC +7)
 
 ```
 
