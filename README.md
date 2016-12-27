@@ -26,3 +26,9 @@ The node path within the JSON document to display. Node names are separated with
 ### renderer
 To help you get things to look good quickly, we added some rendering functions you can use on objects within the JSON document.
 - **facts** Use this with any paragraph that has a child node called 'facts'
+
+## Basic Examples
+
+
+## Try Yourself
+No better way to learn than to try yourself. This [Pen](http://codepen.io/thegreenlion/full/vyqeme/) lets you interactively try different documents and paths.
