@@ -26,7 +26,7 @@
  */
 
 //TGL API Client
-include ('tglClient/tglClient.php');
+include ('tglApiClient/tglApiClient.php');
 
 //Settings Page
 include ('tgl-content-insert-options.php');

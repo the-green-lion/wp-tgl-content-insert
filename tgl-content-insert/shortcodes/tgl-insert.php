@@ -6,6 +6,7 @@ function tgl_shortcode_insert($atts, $content = null)
 {
     // Load options
     $settings = get_option('tgl_settings');
+    $setting_api_key = $settings['tgl_api_key'];
     $setting_show_errors = $settings['tgl_show_errors'];
     $setting_hide_from_search = $settings['tgl_hide_from_search'];
     
@@ -33,9 +34,8 @@ function tgl_shortcode_insert($atts, $content = null)
     
     if( !$documentString ) {
         
-        $key = get_option('tgl_api_key'); //"e193c470-cc9a-48f7-ab89-4d2429066864";
-        $client = new TglApi();
-        $client->signInWithApiKey($key);
+        $client = new TglApiClient();
+        $client->signInWithApiKey($setting_api_key);
 
         $document = $client->getDocument($atts['id']);
         
@@ -68,7 +68,7 @@ function tgl_shortcode_insert($atts, $content = null)
     }
     
     // Check if the node actually turned into text
-    if (!is_string($itemRendered)) {            
+    if (!is_string($itemRendered) && !is_numeric ($itemRendered)) {            
         if ($setting_show_errors == true) return '<span style="color:red">Invalid path</span>';
         else return '';   
     }
@@ -76,7 +76,7 @@ function tgl_shortcode_insert($atts, $content = null)
  
     // wrap output
     $o .= '<div class="dynContent">';        
-    $o .= $itemRendered;    
+    $o .= strval ($itemRendered);   
     $o .= '</div>'; 
     
     // return output
