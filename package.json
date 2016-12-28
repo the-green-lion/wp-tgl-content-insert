@@ -1,0 +1,28 @@
+{
+  "name": "tgl-content-insert",
+  "version": "0.5.0",
+  "description": "Gives you an easy way to add The Green Lion's program descriptions to your website. No more copy-paste, no more keeping them updated by hand.",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp-install": "^0.6.0",
+    "gulp-phplint": "^0.3.2",
+    "gulp-zip": "^3.2.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "run-sequence": "^1.2.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-green-lion/wp-tgl-content-insert.git"
+  },
+  "author": "Bernhard Gessler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/the-green-lion/wp-tgl-content-insert/issues"
+  },
+  "homepage": "https://github.com/the-green-lion/wp-tgl-content-insert#readme"
+}
