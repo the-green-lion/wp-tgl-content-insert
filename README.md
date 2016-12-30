@@ -10,7 +10,15 @@ This library depends on the following projects:
 - eelkevdbos/firebase-php [github](https://github.com/eelkevdbos/firebase-php/releases/tag/0.1.3)
 - the-green-lion/tgl-api-client-js [github](https://github.com/the-green-lion/tgl-api-client-js)
 
+##Installation
+
+* Install via the Wordpress plugins screen
+* Go to 'Settings->TGL Contentent' and input your API key you received from TGL
+* Ready to use our shortcodes!
+
 ## Basic Usage
+
+Just drop the following shortcode into the text of your website:
 
 ```php
 [tgl_insert id="..." path="..." renderer="..."]
@@ -60,13 +68,13 @@ Time zone:	ICT (UTC +7)
 
 ### Example 3: Number
 
-```javascript
-[tgl_insert id="1mKY3DddPftfvIDPK959drDwyOnTIuLiHUf3gWqdhZ9A" path="characteristics.physicalDemand.value"]
+```
+Physical demand: [tgl_insert id="1mKY3DddPftfvIDPK959drDwyOnTIuLiHUf3gWqdhZ9A" path="characteristics.physicalDemand.value"] of 5
 ```
 
 **Output**
 ```
-1
+Physical demand: 1 of 5
 ```
 
 ## Understand Our Documents
