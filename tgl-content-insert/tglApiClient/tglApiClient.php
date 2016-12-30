@@ -9,7 +9,7 @@ require_once __DIR__ . '/firebaseLib.php';
  * @author Bernhard Gessler <bernhard@thegreenlion.net>
  * @url    https://github.com/the-green-lion/tgl-api-client-php/
  */
-class TglApiClientx
+class TglApiClient
 {
     private static $FIREBASE_URL = 'https://tgl-api-20e32.firebaseio.com';
     private static $FIREBASE_KEY = 'AIzaSyC5Fw0sHmxEg7-S1iylkQ68WN6X2rlGq8M';

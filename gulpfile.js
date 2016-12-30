@@ -15,7 +15,7 @@ gulp.task('phplint', function() {
 });
 
 gulp.task('zip', () => {
-    return gulp.src(['tgl-content-insert/**', '!**/*.ini'],
+    return gulp.src(['tgl-content-insert/**', '!**/*.ini', 'readme.txt'],
             {base: '.'})
         .pipe(zip('tgl-content-insert.zip'))
         .pipe(gulp.dest('dist'));
