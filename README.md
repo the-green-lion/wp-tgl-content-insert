@@ -3,6 +3,8 @@ TGL CONTENT INSERT
 
 Wordpress plugin for easy integration TGL's descriptions into your website. Simple and fast via shortcodes.
 
+You may also be interested in our [JS](https://github.com/the-green-lion/tgl-api-client-js), [PHP](https://github.com/the-green-lion/tgl-api-client-php) and [.Net](https://github.com/the-green-lion/tgl-api-client-csharp) client libraries.
+
 ##Dependencies
 This library depends on the following projects:
 - eelkevdbos/firebase-php [github](https://github.com/eelkevdbos/firebase-php/releases/tag/0.1.3)
