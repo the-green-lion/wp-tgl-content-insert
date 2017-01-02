@@ -12,6 +12,7 @@ This library depends on the following projects:
 
 ##Installation
 
+* Find the plugin in the [official plugin directory](https://wordpress.org/plugins/tgl-content-insert/)
 * Install via the Wordpress plugins screen
 * Go to 'Settings->TGL Contentent' and input your API key you received from TGL
 * Ready to use our shortcodes!
