@@ -211,10 +211,50 @@ The JSON looks like:
 **Why so much redundancy?**
 Besides the individual facts we are providing a array of facts for easily looping through these. The reason for always providing the titles - not just the values - is internationalization. Possibly we'll offer further languages in the future. So instead of hardcoding any text, you should rather use our given titles. If we were to add more languages, your solution would work in another language just as well.
 
+## Media
+
+### Document Media
+Some of the documents come with media, such as programs, locations and countries. 
+
+| Path                        | Type                      | What is this?                                                             |
+| --------------------------- | ------------------------- | ------------------------------------------------------------------------- |
+| media.coverVideo            |                           | **Optional**                                                             |
+| media.coverVideo.urlMp4     | Text                      | URL of the cover video in MP4 format.                                     |
+| media.coverVideo.urlWebm    | Text                      | URL of the cover video in WEbM format.                                    |
+| media.coverVideo.urlPoster  | Text                      | URL of the first frame of the video exported as Jpeg.                     |
+| media.idMediaFolder         | Text                      | Google Drive ID of the media folder for this document.                    |
+| media.idRawFootageFolder    | Text                      | Google Drive ID of the folder with raw footage folder for this document.  |
+| media.lastChanged           | Date                      | Last time photos or videos were added, removed or edited.                 |
+| media.urlBrowsePhotos       | Text                      | Link to the shared Google Drive folder containing media for this program. |
+| media.urlBrowseRawFootage   | Text                      | Link to the shared Google Drive folder containing raw footage for this program.  |
+| media.urlDownloadZipPhotosAll | Text                    | Download link for a zip file containing all photos of this program.       |
+| media.urlDownloadZipPhotosTop | Text                    | Download link for a zip file containing our favorite photos of this program.    |
+
+Each of these documents provides different images, that's why they are not listed here. See the specific document reference.
+
+### Image
+
+| Path                        | Type                      | What is this?                                                             |
+| --------------------------- | ------------------------- | ------------------------------------------------------------------------- |
+| author                      | Text                      | Always says 'The Green Lion'                                              |
+| description                 | Text                      | Description of the photo. Often empty. Suitable as subtitle in a gallery. |
+| id                          | Text                      | Unique ID of the photo.                                                   |
+| revision                    | Text                      | Uniqiue alphanumeric ID for the current revision. If the photo gets edited, the revision changes.         |
+| sizes                       | Array ([Image Size](#image-size))     | See below.                                                    |
+
+### Image Size
+
+| Path                        | Type                      | What is this?                                                             |
+| --------------------------- | ------------------------- | ------------------------------------------------------------------------- |
+| size                        | Text                      | Dimensions in pixel. Usually one of the following: '1920, 1440', '1024, 768', '480, 360', '80, 80'. We may add or remove sizes in the future. Best check dynamically for the size that gets closest to what you need. |
+|url                          | Text                      | Url to the hosted photo.                                                  |
+
 ## How Information is Structured
 ### Program
 
-This document describes a single program.
+This document describes a single program. It comes with the following information:
+
+#### General
 
 | Path                        | Type                      | What is this?                                                             |
 | --------------------------- | ------------------------- | ------------------------------------------------------------------------- |
@@ -223,31 +263,48 @@ This document describes a single program.
 | programState                | Enum (Text)               | 'Enabled' or 'Disabled'. Depends on if we still offer this program or not. |
 | programType                 | Enum (Text)               | 'Basic', 'Exclusive', 'Group' or 'Offer'                                  |
 | urlFacebook                 | Text                      | **OPTIONAL** If this program has a Facebook page, this is the link.       |
+| locations                   | Array                     | References to all locations that this program passes by at                |
+| locations[i].id             | Text                      | ID of the corresponding location document.                                |
+| locations[i].name           | Text                      | Name of the corresponding location.                                       |
+| country                     |                           | Reference to the country of this program.                                 |
+| country.id                  | Text                      | ID of the corresponding country document.                                 |
+| country.name                | Text                      | Name of the corresponding country.                                        |
+
+#### Paragraphs
+
+| Path                        | Type                      | What is this?                                                             |
+| --------------------------- | ------------------------- | ------------------------------------------------------------------------- |
 | overview                    | [Paragraph](#paraghraphs) | The 'Quick Overview' paragraph.                                           |
 | overview.shortenedIntro     | Text                      | Short version of the 'Quick Overview' paragraph. Max 160 characters.      |
+| &nbsp;                      |                           |                                                                           |
 | price                       |                           | The 'Pricing' paragraph.                                                  |
 | price.currentPrice          | Number                    | The program price at the time of 'documentLastPublished'                  |
 | price.prices                | Key/Value                 | Key: The date from which on a price applies. Value: Price                 |
+| &nbsp;                      |                           |                                                                           |
 | characteristics             | [Paragraph](#paraghraphs) | The 'Program Characteristics' paragraph. Contains [Facts](#facts).        |
 | characteristics.communityService | Number               | 1 (little) to 5 (high)                                                    |
 | characteristics.culture     | Number                    | 1 (little) to 5 (high)                                                    |
 | characteristics.learning    | Number                    | 1 (little) to 5 (high)                                                    |
 | characteristics.leisure     | Number                    | 1 (little) to 5 (high)                                                    |
 | characteristics.physicalDemand | Number                 | 1 (little) to 5 (high)                                                    |
+| &nbsp;                      |                           |                                                                           |
 | availability                | [Paragraph](#paraghraphs) | The 'Program Duration & Availability' paragraph. Contains [Facts](#facts). |
 | availability.availableFrom  | Date                      | Date first participants can arrive                                        |
 | availability.availableUntil | Date                      | **Optional** Date last participants can arrive. Then program discontinues. |
 | availability.bookableUntil  | Date                      | **Optional** Date last booking can be made, even for a later date. Latest 'availableUntil'.  |
 | availability.minDuration    | Number                    | Minimum program duration (weeks)                                          |
 | availability.maxDuration    | Number                    | **Optional** Maximum program duration (weeks)                             |
+| &nbsp;                      |                           |                                                                           |
 | description                 | [Paragraph](#paraghraphs) | The 'Program Description' paragraph.                                      |
+| &nbsp;                      |                           |                                                                           |
 | aims                        | [Paragraph](#paraghraphs) | The 'Aims & Objectives' paragraph.                                        |
-| schedule                    | [Paragraph](#paraghraphs) | The 'Schedule' paragraph. See below.                                      |
+| &nbsp;                      |                           |                                                                           |
+| schedule                    | [Paragraph](#paraghraphs) | The 'Schedule' paragraph.                                                 |
+| schedule.weeks              | Array ([Schedule Week](#schedule-week)) | See below.                                                  |
+| &nbsp;                      |                           |                                                                           |
 | startingDates               | [Paragraph](#paraghraphs) | The 'Starting Dates' paragraph.                                           |
-| startingDates.startingDates | Array                     |                                                                           |
-| startingDates.startingDates[i].startsEveryWeek | Boolean | 'true' if the program starts every week. Then 'dates' doesn't exist'.    |
-| startingDates.startingDates[i].year | Number            | The year that these dates refer to.                                       |
-| startingDates.startingDates[i].dates | Array(Date)      | **Optional** Actual starting dates. Only exists if 'startsEveryWeek' is 'false'.  |
+| startingDates.startingDates | Array ([Starting Dates](#starting-dates)    | See below.                                              |
+| &nbsp;                      |                           |                                                                           |
 | requirements                | [Paragraph](#paraghraphs) | The 'Participant Criteria & Requirements' paragraph.  Contains [Facts](#facts). |
 | requirements.requirementEnglishLevel.title    | Text    | Original English name of this requirement                                 |
 | requirements.requirementEnglishLevel.value    | Enum    | One of the following values:  'None', 'Basic', 'Intermediate", 'Advanced' |
@@ -264,33 +321,48 @@ This document describes a single program.
 | requirements.requirementResume.title          | Text    | Original English name of this requirement                                 |
 | requirements.requirementResume.value          | Enum    | One of the following values: 'No', 'On Signup', 'On Arrival'              |
 | requirements.additionalRequirements | [Paragraph](#paraghraphs) | Free text about any further requirements. May also say that there are no further requirements.      |
+| &nbsp;                      |                           |                                                                           |
 | equipment                   | [Paragraph](#paraghraphs) | The 'Additional Equipment' paragraph.                                     |
-| locations                   | Array                     | References to all locations that this program passes by at                |
-| locations[i].id             | Text                      | ID of the corresponding location document.                                |
-| locations[i].name           | Text                      | Name of the corresponding location.                                       |
-| country                     |                           | Reference to the country of this program.                                 |
-| country.id                  | Text                      | ID of the corresponding country document.                                 |
-| country.name                | Text                      | Name of the corresponding country.                                        |
-| media                       |                           |                                                                           |
-| media.coverVideo            |                           |                                                                           |
-| media.idMediaFolder         | Text                      | Google Drive ID of the media folder for this program                      |
-| media.idRawFootageFolder    | Text                      | Google Drive ID of the folder with raw footage folder for this program    |
-| media.images                | Array                     |                                                                           |
-| media.images[i].author      | Text                      | Always says 'The Green Lion'                                               |
-| media.images[i].description | Text                      | Description of the photo. Often empty. Suitable as subtitle in a gallery. |
-| media.images[i].id          | Text                      | Unique ID of the photo.                                                   |
-| media.images[i].revision    | Text                      | Uniqiue alphanumeric ID for the current revision. If the photo gets edited, the revision changes.    |
-| media.images[i].sizes      | Array                      |                                                                           |
-| media.images[i].sizes[j].size | Text                    | Dimensions in pixel. Usually one of the following: '1920, 1440', '1024, 768', '480, 360', '80, 80'. We may add or remove sizes in the future. Best check dynamically for the size that gets closest to what you need. |
-| media.images[i].sizes[j].url  | Text                    | Url to the hosted photo.                                                  |
-| media.lastChanged           | Date                      | Last time photos or videos were added, removed or edited                  |
-| media.idMediaFolder         | Text                      | Google Drive ID of the media folder for this program                      |
-| media.urlBrowsePhotos       | Text                      | Link to the shared Google Drive folder containing media for this program  |
-| media.urlBrowseRawFootage   | Text                      | Link to the shared Google Drive folder containing raw footage for this program.  |
-| media.urlDownloadZipPhotosAll | Text                    | Download link for a zip file containing all photos of this program.       |
-| media.urlDownloadZipPhotosTop | Text                    | Download link for a zip file containing our favorite photos of this program.    |
 
- 
+##### Schedule Week
+
+A schedule week either starts on a Sunday or a Monday and can not have more than 7 days. A schedule week can summarize multiple actual weeks if they have the same itinerary.
+
+| Path                        | Type              | What is this?                                                                     |
+| --------------------------- | ----------------- | --------------------------------------------------------------------------------- |
+| days                        | Array ([Schedule Item](#schedule-item))   | See below.                                                |
+| duration                    | Number            | Usually 1. A greater number would mean that this sequence of days repeats for the specified number of weeks |
+| extendable                  | Boolean           | Usually 'false'. Only relevant for multi week schedules. 'true' means that if someone booked this program for more weeks than specified in the schedule, this week would be repeated.  |
+| headline                    | Text              | 'Schedule' if the whole schedule has only one week. Otherwise the title of this week.  |
+
+##### Schedule Item
+
+A schedule item refers to one or multiple days within a week.
+
+| Path                        | Type              | What is this?                                                                     |
+| --------------------------- | ----------------- | --------------------------------------------------------------------------------- |
+| contentHtml                 | Text              | The text of this paragraph as HTML code                                           |
+| daysOfWeek                  | Array (Text)      | The names of the days that this schedule item applies to.                         |
+| headline                    | Text              | The original headline of this paragraph. Usually a specific day or a range of days like 'Monday to Wednesday'. Could also be 'Weekend' or 'A typical day looks like' which means Monday to Friday.  |
+| headlineAlternative         | Text              | Similar to 'headline', just that if 'headline is 'A typical day looks like', this will be 'Monday to Friday' and instead of 'Weekend' it's 'Saturday to Sunday' |
+
+
+##### Starting Dates
+
+| Path                        | Type              | What is this?                                                                     |
+| --------------------------- | ----------------- | --------------------------------------------------------------------------------- |
+| startsEveryWeek             | Boolean           | 'true' if the program starts every week. Then 'dates' doesn't exist'.             |
+| year                        | Number            | The year that these dates refer to.                                               |
+| dates                       | Array(Date)       | **Optional** Actual starting dates. Only exists if 'startsEveryWeek' is 'false'.  |
+
+#### Media
+
+| Path                        | Type                               | What is this?                                                    |
+| --------------------------- | ---------------------------------- | ---------------------------------------------------------------- |
+| media                       | [Document Media](#document-media)  |                                                                  |
+| media.images                | Array ([Image](#image)             |                                                                  |
+
+
 ### Location
 
 This document describes a location. This means our accommodation there as well as the surroundings. There can be one or multiple programs at one location. One program can stop at multiple locations one after another.
