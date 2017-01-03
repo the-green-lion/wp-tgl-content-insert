@@ -360,7 +360,7 @@ A schedule item refers to one or multiple days within a week.
 | Path                        | Type                               | What is this?                                                    |
 | --------------------------- | ---------------------------------- | ---------------------------------------------------------------- |
 | media                       | [Document Media](#document-media)  |                                                                  |
-| media.images                | Array ([Image](#image)             |                                                                  |
+| media.images                | Array ([Image](#image))            | Photos about the program.                                        |
 
 
 ### Location
