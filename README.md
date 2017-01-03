@@ -79,15 +79,165 @@ Physical demand: 1 of 5
 ```
 
 ## Understand Our Documents
+
+This [Pen](http://codepen.io/thegreenlion/full/vyqeme/) and this [Pen](http://codepen.io/thegreenlion/full/LbjdGj/) help you explore our documents while you read the following reference.
+
 ### Documents
+
+Internally our information is structured in documents. Imagine them to be a folder full of MS Word files.
+One document talks about one specific thing. E.g. about accommodation in Singburi. Information is not repeated in multiple documents. Each description of a program in Singburi actually only talks about the program. Not about the accommodation and not about how to get there, as we would have to repeat this information each time, allowing for copy past mistakes and issues once anything changes.
+
+Each document, no matter what it is about, contains some general information:
+
+| Path                   | Type     | What is this?                                                                            |
+| ---------------------- | -------- | ---------------------------------------------------------------------------------------- |
+| documentId             | Text     | The ID of the document. Each ID is unique and refers to one specific document.           |
+| documentName           | Text     | The pretty name of what this document is about, e.g. 'Siam Culture' or 'Singburi'.       |
+| documentSlug           | Text     | A URL friendly version of the name.                                                      |
+| documentCss            | Text     | The styling of the document. You'll probably only need this in customly programed integrations |
+| documentLastChanged    | Date     | The date and time when we changed the information last.                                  |
+| documentLastPublished  | Date     | The date and time when we made the latest changes abvailable via our API. Usually a few hours or days after the latest change.               |
+
+If you retrieve this info via our JSON API it will look like this:
+
+```json
+"documentCss" : ".dynLocation ul.lst-kix_mav6t69hg8lt-0{list-style-type:none}.dynLocation .lst-kix_mav6t69hg8lt-0>li:before{content:\"\\0025cf  \"}.dynLocation ol{margin:0;padding:0}.dynLocation table td,table th{padding:0}.dynLocation .c11{border-right-style:solid;padding:5pt 5pt 5pt 5pt;border-bottom-;border-top-width:1pt;border-right-width:1pt;border-left-;vertical-align:top;border-right-;border-left-width:1pt;border-top-style:solid;border-left-style:solid;border-bottom-width:1pt;width:121.9pt;border-top-;border-bottom-style:solid}.dynLocation .c7{border-right-style:solid;padding:5pt 5pt 5pt 5pt;border-bottom-;border-top-width:1pt;border-right-width:1pt;border-left-;vertical-align:top;border-right-;border-left-width:1pt;border-top-style:solid;border-left-style:solid;border-bottom-width:1pt;width:123pt;border-top-;border-bottom-style:solid}.dynLocation .c2{;font-weight:700;;vertical-align:baseline;;;}.dynLocation .c1{;;;vertical-align:baseline;;;}.dynLocation .c4{padding-top:0pt;padding-bottom:0pt;line-height:1.0;orphans:2;widows:2;text-align:justify}.dynLocation .c14{margin-left:-1.5pt;border-spacing:0;border-collapse:collapse;margin-right:auto}.dynLocation .c0{page-break-after:avoid;orphans:2;widows:2}.dynLocation .c5{orphans:2;widows:2}.dynLocation .c8{margin-left:36pt;padding-left:0pt}.dynLocation .c10{padding:0;margin:0}.dynLocation .c9{height:0pt}.dynLocation .c13{height:24pt}.dynLocation .c6{font-weight:700}.dynLocation .c3{}.dynLocation .c16{text-align:left}.dynLocation .c12{page-break-after:avoid}.dynLocation .c17{height:11pt}",
+"documentId" : "1kV2z0GOj1_ZvWFDrqp3hMJ4Mh6J--QGtCJlEHYni1Ds",
+"documentLastChanged" : "2016-12-10T15:20:44.413+01:00",
+"documentLastPublished" : "2016-12-26T20:49:05.0319921+01:00",
+"documentName" : "Singburi",
+"documentSlug" : "singburi",
+```
 
 ### Paraghraphs
 
+Within a document, all information is structured in paragaphs. Just like in a actual MS Word document. For every paragraph, you can get its headline and its text. Some paragraphs additionally provide their content in a more structured form so you can pick and display a very specific piece of information.
+
+| Path                        | Type         | What is this?                                                                          |
+| --------------------------- | ------------ | -------------------------------------------------------------------------------------- |
+| {paragraph}.raw.headline    | Text         | The original headline of this paragraph.                                               |
+| {paragraph}.raw.contentHtml | Text         | The text of this paragraph as HTML code                                                |
+| {paragraph}.raw.disclaimers | Array (Text) | Any information in this paragraph that we really wanted to peak out.                   |
+
+{paragraph} stands for the actual name of the paragraph.
+
+The JSON looks like:
+
+```json
+"description" : {
+  "raw" : {
+    "contentHtml" : "<p class=\"c5\"><span class=\"c3\">Your new home will be one of our 3 &lsquo;Eco Houses&rsquo; near Singburi, central Thailand: Lemon House, Twin House and Brown House. They are all located riverside (River Noi &ndash; Little River) in the village of Tha Kham and depending on which house you are staying at, is about 8-15km from Singburi (10-15 minutes by car). The 3 houses sleep from 30 to 72 people.</span></p><p class=\"c5\"><span class=\"c3\">All houses have a communal area where you can eat, relax, meet fellow participants or use the free Wifi.</span></p><p class=\"c5\"><span class=\"c3\">Although not directly on site, there are laundry facilities offered by locals which many of our participants take advantage of (this will probably cost you 5&#3647; per item, otherwise you can easily wash your clothes by hand.)</span></p>",
+    "disclaimers" : [ "Important: A security cash deposit of 500TBH is required for the key to your room. It is payable upon arrival in cash and will be returned when they key is given back at the end of your stay.", "No alcohol is permitted in any of our accommodations, but we are located within walking distance of a local shop and there is even a makeshift bar provided by the friendly locals in front of the accommodation." ],
+    "headline" : "About the Accommodation"
+  }
+},
+```
+
 ### Facts
+
+Some paragraphs in our documents list information like this:
+
+**Minimum age:** -  
+**Maximum age:** -  
+**Minimum English level:** Basic  
+**CRB required:** No  
+**Passport copy required:**	No  
+**Resume copy required:** No  
+**Required qualification:**	None
+
+We call this 'Facts'. To each line we refer as 'Fact'. In these cases we give you multiple ways (besides the raw HTML, as above) how to access the information, to suit your specific situation:
+
+| Path                        | Type         | What is this?                                                                          |
+| --------------------------- | ------------ | -------------------------------------------------------------------------------------- |
+| {paragraph}.facts           | Array (Fact) |                                                                                        |
+| {paragraph}.facts[i].title  | Text         | The title of the fact. That's what above you see before the colon.                     |
+| {paragraph}.facts[i].value  | Text         | The value of the fact. That's what above you see behind the colon. If a fact is optional, it may have '-' instead of an actual value.                    |
+| {paragraph}.{fact}.title    | Text         | The title of the fact. That's what above you see before the colon.                     |
+| {paragraph}.{fact}.value    | Text         | The value of the fact. That's what above you see behind the colon.  If a fact is optional as has no value ('-'), it will not appear here.                    |
+
+{paragraph} stands for the actual name of the paragraph, {fact} for the actual name of the fact.
+
+The JSON looks like:
+
+```json
+"facts" : [ {
+    "title" : "Minimum age",
+    "value" : "-"
+  }, {
+    "title" : "Maximum age",
+    "value" : "-"
+  }, {
+    "title" : "Minimum English level",
+    "value" : "None"
+  }, {
+    "title" : "CRB required",
+    "value" : "No"
+  }, {
+    "title" : "Passport copy required",
+    "value" : "No"
+  }, {
+    "title" : "Resume copy required",
+    "value" : "No"
+  }, {
+    "title" : "Required qualification",
+    "value" : "None"
+  } ],
+  "raw" : {
+    "contentHtml" : "<h2 class=\"c1\" id=\"h.i3pzvype50r4\"><span class=\"c2\">Standard Requirements</span></h2><p class=\"c3\"><span class=\"c5\">Minimum age:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=\"c2\">-</span></p><p class=\"c3\"><span class=\"c5\">Maximum age:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class=\"c2\">-</span></p><p class=\"c3\"><span class=\"c5\">Minimum English level:</span><span class=\"c2\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;None </span></p><p class=\"c3\"><span class=\"c5\">CRB required:</span><span class=\"c2\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No</span></p><p class=\"c3\"><span class=\"c5\">Passport copy required:</span><span class=\"c2\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No</span></p><p class=\"c3\"><span class=\"c5\">Resume copy required:</span><span class=\"c2\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No</span></p><p class=\"c3\"><span class=\"c5\">Required qualification:</span><span class=\"c2\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;None</span></p><h2 class=\"c1\" id=\"h.lh6l0defxouj\"><span class=\"c2\">Additional Requirements</span></h2><p class=\"c3\"><span class=\"c2\">There are no further requirements for this program.</span></p>",
+    "headline" : "Participant Criteria & Requirements"
+  },
+  "requirementEnglishLevel" : {
+    "title" : "Minimum English level",
+    "value" : "None"
+  },
+  "requirementPassportCopy" : {
+    "title" : "Passport copy required",
+    "value" : "No"
+  },
+  "requirementPoliceCheck" : {
+    "title" : "CRB required",
+    "value" : "No"
+  },
+  "requirementQualification" : {
+    "title" : "Required qualification",
+    "value" : "None"
+  },
+  "requirementResume" : {
+    "title" : "Resume copy required",
+    "value" : "No"
+  }
+```
 
 ## How Information is Structured
 ### Program
 
+This document describes a single program.
+
+| Path                        | Type                      | What is this?                                                             |
+| --------------------------- | ------------------------- | ------------------------------------------------------------------------- |
+| programId                   | Number                    | 2-4 digits number, unique to this program                                 |
+| programIsTop                | Boolean                   | 'true' or false'. No important meaning. We e.g. show this more prominently in our catalog. |
+| programState                | Enum (Text)               | 'Enabled' or 'Disabled'. Depends on if we still offer this program or not. |
+| programType                 | Enum (Text)               | 'Basic', 'Exclusive', 'Group' or 'Offer'                                  |
+| urlFacebook                 | Text                      | **OPTIONAL** If this program has Facebook page, this is the link.         |
+|                             |                           |                                                                           |
+| overview                    | [Paragraph](#paraghraphs) | The 'Quick Overview' paragraph.                                           |
+| price                       |                           | The 'Pricing' paragraph.                                                  |
+| characteristics             | [Paragraph](#paraghraphs) | The 'Program Characteristics' paragraph. Contains [Facts](#facts).        |
+| availability                | [Paragraph](#paraghraphs) | The 'Program Duration & Availability' paragraph. Contains [Facts](#facts). |
+| description                 | [Paragraph](#paraghraphs) | The 'Program Description' paragraph.                                      |
+| aims                        | [Paragraph](#paraghraphs) | The 'Aims & Objectives' paragraph.                                        |
+| schedule                    | [Paragraph](#paraghraphs) | The 'Schedule' paragraph.                                                 |
+| startingDates               | [Paragraph](#paraghraphs) | The 'Starting Dates' paragraph.                                           |
+| requirements                | [Paragraph](#paraghraphs) | The 'Participant Criteria & Requirements' paragraph.                      |
+| equipment                   | [Paragraph](#paraghraphs) | The 'Additional Equipment' paragraph.                                     |
+|                             |                           |                                                                           |
+| locations                   | Array                     |                                                                           |
+| country                     |                           |                                                                           |
+|                             |                           |                                                                           |
+| media                       |                           |                                                                           |
+
+ 
 ### Location
 
 ### Arrival Information
