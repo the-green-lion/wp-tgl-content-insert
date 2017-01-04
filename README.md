@@ -353,7 +353,7 @@ A schedule item refers to one or multiple days within a week.
 | --------------------------- | ----------------- | --------------------------------------------------------------------------------- |
 | startsEveryWeek             | Boolean           | 'true' if the program starts every week. Then 'dates' doesn't exist'.             |
 | year                        | Number            | The year that these dates refer to.                                               |
-| dates                       | Array(Date)       | **Optional** Actual starting dates. Only exists if 'startsEveryWeek' is 'false'.  |
+| dates                       | Array (Date)      | **Optional** Actual starting dates. Only exists if 'startsEveryWeek' is 'false'.  |
 
 #### Media
 
@@ -368,6 +368,66 @@ A schedule item refers to one or multiple days within a week.
 This document describes a location. This means our accommodation there as well as the surroundings. There can be one or multiple programs at one location. One program can stop at multiple locations one after another.
 
 Important for us is always where participants sleep. There may be two programs in the surroundings of the same city and participants stay in different places. Then we differentiate as two different locations. On the other hand participants may be joining programs in different villages/cities but stay in the same place. Then we refer to it as one location.
+
+#### General
+
+| Path                        | Type                      | What is this?                                                             |
+| --------------------------- | ------------------------- | ------------------------------------------------------------------------- |
+| country                     |                           | Reference to the country this location is in.                             |
+| country.id                  | Text                      | ID of the corresponding country document.                                 |
+| country.name                | Text                      | Name of the corresponding country.                                        |
+
+#### Paragraphs
+
+| Path                        | Type                      | What is this?                                                             |
+| --------------------------- | ------------------------- | ------------------------------------------------------------------------- |
+| location                    | [Paragraph](#paraghraphs) | The 'Location' paragraph.                                                 |
+| &nbsp;                      |                           |                                                                           |
+| geolocation                 | [Paragraph](#paraghraphs) | The 'Geolocation' paragraph.                                              |
+| geolocation.coordinates     | Array                     | Listing of GPS coordinates of this location. Usually its just one coordinate.     |
+| geolocation.coordinates[i].latitude | Number            |                                                                           |
+| geolocation.coordinates[i].longitud | Number            |                                                                           |
+| &nbsp;                      |                           |                                                                           |
+| accommodation               |                           | The 'Accommodation & Food' paragraph.                                     |
+| accommodation.headline      | Text                      | 'Accommodation & Food'                                                    |
+| accommodation.description   | [Paragraph](#paraghraphs) | General description of the accommodation.                                 |
+| accommodation.food          | [Paragraph](#paraghraphs) | Description of the food served at the accommodation.                      |
+| accommodation.overview      | [Paragraph](#paraghraphs) | Comparison of different available room types in HTML table form.          |
+| accommodation.types         | Array ([Accommodation Type](#accommodation-type)  | Comparison of different available room types in HTML table form.          |
+| &nbsp;                      |                           |                                                                           |
+| facilities                  | [Paragraph](#paraghraphs) | The 'Facilities' paragraph.                                               |
+| &nbsp;                      |                           |                                                                           |
+| activities                  | [Paragraph](#paraghraphs) | The 'Activities & Events' paragraph.                                      |
+| activities.activities       | Array ([Paragraph](#paraghraphs)) | **Optional** Each paragraph is one activity. The headline usually says when it is conducted. Doesn't exist if there are no extra activities.       |
+| &nbsp;                      |                           |                                                                           |
+| surroundings                | [Paragraph](#paraghraphs) | The 'Sights & Surroundings' paragraph.                                    |
+| &nbsp;                      |                           |                                                                           |
+| transportation              | [Paragraph](#paraghraphs) | The 'Transportation' paragraph.                                           |
+| transportation.freeTransportTo         | Array          | Listing of all location to which we transfer participants for free for their next program after finishing their program at the current location.                 |
+| transportation.freeTransportTo[i].id   | Text           | ID of the corresponding location document.                                |
+| transportation.freeTransportTo[i].name | Text           | Name of the corresponding location.                                       |
+
+##### Accommodation Type
+
+An accommodation type is also a [Paragraph](#paraghraphs) and holds its properties as [Facts](#facts).
+
+| Path                        | Type                               | What is this?                                                    |
+| --------------------------- | ---------------------------------- | ---------------------------------------------------------------- |
+| upgradePrice                |                           | The additional price to be paid on top of the program price for staying in this room type      |
+| upgradePrice.currentPrice   | Number                    | The upgrade price at the time of 'documentLastPublished'                  |
+| upgradePrice.prices         | Key/Value                 | Key: The date from which on a price applies. Value: Price                 |
+| media                       |                           |                                                                           |
+| media.idMediaFolder         | Text                      | Google Drive ID of the media folder for this document.                    |
+| media.images                | Array ([Image](#image))   | Photos of this room type.                                                 |
+
+
+#### Media
+
+| Path                        | Type                               | What is this?                                                    |
+| --------------------------- | ---------------------------------- | ---------------------------------------------------------------- |
+| media                       | [Document Media](#document-media)  |                                                                  |
+| media.imagesActivities      | Array ([Image](#image))            | **Optional** Photos of additional activities offered for all participants at this location.       |
+| media.imagesScenic          | Array ([Image](#image))            | **Optional** Photos of the surroundings and setting of this location.             |
 
 ### Arrival Information
 
@@ -389,12 +449,80 @@ This document describes the public holidays and school holidays for one, multipl
 
 ### Country
 
+#### General
+
+| Path                        | Type                      | What is this?                                                             |
+| --------------------------- | ------------------------- | ------------------------------------------------------------------------- |
+| isoCode                     | Text                      | 2 digit country code (ISO 3166)                                           |
+| urlFacebook                 | Text                      | **OPTIONAL** If this country has a Facebook page, this is the link.       |
+
+#### Paragraphs
+
+| Path                        | Type                      | What is this?                                                             |
+| --------------------------- | ------------------------- | ------------------------------------------------------------------------- |
+| quickFacts                  | [Paragraph](#paraghraphs) | The 'Quick Overview' paragraph.                                           |
+| quickFacts.name.title       | Text                      | Original English name of this fact.                                       |
+| quickFacts.name.value       | Text                      | Full name of this country.                                                |
+| quickFacts.population.title | Text                      | Original English name of this fact.                                       |
+| quickFacts.population.value | Text                      | Population, usually in million.                                           |
+| quickFacts.capital.title    | Text                      | Original English name of this fact.                                       |
+| quickFacts.capital.value    | Text                      | Capital of the country.                                                   |
+| quickFacts.language.title   | Text                      | Original English name of this fact.                                       |
+| quickFacts.language.value   | Text                      | Official language(s).                                                     |
+| quickFacts.currency.title   | Text                      | Original English name of this fact.                                       |
+| quickFacts.currency.value   | Text                      | LOcal currency. Usually full name and abbreviation.                       |
+| quickFacts.timeZone.title   | Text                      | Original English name of this fact.                                       |
+| quickFacts.timeZone.value   | Text                      | Time zone. Usually its name and its difference to UTC time.               |
+| &nbsp;                      |                           |                                                                           |
+| countryInformation          | [Paragraph](#paraghraphs) | The 'Country Information' paragraph.                                      |
+| climate                     | [Paragraph](#paraghraphs) | The 'Climate' paragraph.                                                  |
+| culture                     | [Paragraph](#paraghraphs) | The 'Culture' paragraph.                                                  |
+| transportation              | [Paragraph](#paraghraphs) | The 'Transportation' paragraph.                                           |
+
+#### Media
+
+| Path                        | Type                               | What is this?                                                    |
+| --------------------------- | ---------------------------------- | ---------------------------------------------------------------- |
+| media                       | [Document Media](#document-media)  |                                                                  |
+| media.imagesScenic          | Array ([Image](#image))            | Photos about the country.                                        |
+| media.imagesPeople          | Array ([Image](#image))            | **Optional** Photos of unique people and characters.             |
+| media.imagesFood            | Array ([Image](#image))            | **Optional** Photos of cool food arrangements or culinary highlights.      |
+
 ### Contacts & Addresses
 
-For each country there is one document listing relevanbt contact persons for program inquiries, transfer, emergencies etc.
+For each country there is one document listing relevant contact persons for program inquiries, transfer, emergencies etc.
 
-*Not available via our API yet. Coming Soon...*
+| Path                        | Type              | What is this?                                                                     |
+| --------------------------- | ----------------- | --------------------------------------------------------------------------------- |
+| addresses                   | Array ([Paragraph](#paraghraphs))  | Address paragraphs. Each paragraph is one address.               |
+| furtherContacts             | Array ([Contact](#contact))        | **Optional** Further contact persons in the country. This may involve transfer coordinators or program coordinators. See below.     |
+| mainContacts                | Array([Contact](#contact))         | Your first point of contact. See below.                          |
+| marketingContacts           | Array([Contact](#contact))         | Your contact before starting to market a country. See below   .  |
+
+#### Contact
+
+A contact is also a [Paragraph](#paraghraphs) and holds its properties as [Facts](#facts).
+
+| Path                        | Type              | What is this?                                                                     |
+| --------------------------- | ----------------- | --------------------------------------------------------------------------------- |
+| contactReasons              | Array (Text)      | **Optional** Listing of reasons why to contact this person. Usually some of the following: 'Programs/Logistics Inquiries', 'Emergencies', 'Transfer Issues'             |
+| email                       | Text              | **Optional** Email of the contact person                                          |
+| fax                         | Text              | **Optional** Fax number of the contact person                                     |
+| firstName                   | Text              | First name of the contact person. 'Office' for local offices.                     |
+| gender                      | Enum              | One of the following values: 'Male', 'Female'                                     |
+| languages                   | Array (Text)      | Listing of languages a contact person speaks.                                     |
+| lastName                    | Text              | **Optional** Last name of the contact person.                                     |
+| mobilePhones                | Array (Text)      | **Optional** Listing of mobile phone numbers of a contact person                  |
+| phone                       | Text              | **Optional** Landline phone number of the contact person                          |
+| skype                       | Text              | **Optional** Skype name of a contact person                                       |
 
 ### Starting Dates
+In some countries arrival is limited to certain dates, e.g. the first and third week of a month. For each different arrival date situation, there is one document that may apply to one or multiple countries. All locations in one country follow the same dates, so for one country there is only one corresponding starting dates document.
 
+Keep in mind that these dates only refer to arrivals to the country. Certain programs in the country may have limited starting dates on their own.
 
+| Path                        | Type                                      | What is this?                                             |
+| --------------------------- | ----------------------------------------- | --------------------------------------------------------- |
+| howItWorks                  | [Paragraph](#paraghraphs)                 | Short text about what the following dates mean            |
+| startingDates               | [Paragraph](#paraghraphs)                 |                                                           |
+| startingDates.startingDates | Array ([Starting Dates](#starting-dates)  | Starting dates for the current (and optionally next) year |
