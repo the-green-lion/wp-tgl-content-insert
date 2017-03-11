@@ -78,8 +78,6 @@ Physical demand: [tgl_insert id="1mKY3DddPftfvIDPK959drDwyOnTIuLiHUf3gWqdhZ9A" p
 ```
 Physical demand: 1 of 5
 ```
-<<<<<<< HEAD
-=======
 
 ## Understand Our Documents
 
@@ -529,4 +527,3 @@ Keep in mind that these dates only refer to arrivals to the country. Certain pro
 | howItWorks                  | [Paragraph](#paraghraphs)                 | Short text about what the following dates mean            |
 | startingDates               | [Paragraph](#paraghraphs)                 |                                                           |
 | startingDates.startingDates | Array ([Starting Dates](#starting-dates)  | Starting dates for the current (and optionally next) year |
->>>>>>> 02cadcc37dc152d4feb14c5ce108b6f66fb65a77
