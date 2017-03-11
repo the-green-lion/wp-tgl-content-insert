@@ -15,12 +15,22 @@ gulp.task('phplint', function() {
 });
 
 gulp.task('zip', () => {
-    return gulp.src(['tgl-content-insert/**', '!**/*.ini', 'readme.txt'],
+    return gulp.src(['tgl-content-insert/**', '!**/*.ini'],
             {base: '.'})
         .pipe(zip('tgl-content-insert.zip'))
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('copyForSVN', () => {
+    return gulp.src(['./tgl-content-insert/**', '!**/*.ini'])
+    .pipe(gulp.dest('./wp-org-repository/trunk'));
+});
+
+gulp.task('copyForSVN2', () => {
+    return gulp.src('./readme.txt')
+    .pipe(gulp.dest('./wp-org-repository/trunk'));
+});
+
 gulp.task("default", function (callback) {
-    runSequence("copyClient", "phplint", "zip", callback);
+    runSequence("copyClient", "phplint", "zip", "copyForSVN", "copyForSVN2", callback);
 });

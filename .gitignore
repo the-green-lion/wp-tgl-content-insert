@@ -1,3 +1,5 @@
 *.ini
 .vscode
 node_modules
+wp-org-repository
+dist

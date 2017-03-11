@@ -26,7 +26,23 @@ Find the full description on our [Github Repository](https://github.com/the-gree
 = 0.5 =
 * Initial release. Handle with caution.
 
+= 0.6 =
+* Added paragraph renderer
+* Extended facts renderer to handle footnotes
+* Renderer now add more classes to output to allow for better custom styling
+
+= 0.7 =
+* Upgraded to latest TGL API Client Library
+
 == Upgrade Notice ==
 
 = 0.5 =
 Initial release. Handle with caution.
+
+= 0.6 =
+* Added paragraph renderer
+* Extended facts renderer to handle footnotes
+* Renderer now add more classes to output to allow for better custom styling
+
+= 0.7 =
+* Upgraded to latest TGL API Client Library

@@ -1,4 +1,4 @@
-TGL CONTENT INSERT
+﻿TGL CONTENT INSERT
 ============
 
 Wordpress plugin for easy integration TGL's descriptions into your website. Simple and fast via shortcodes.
@@ -28,6 +28,7 @@ The node path within the JSON document to display. Node names are separated with
 ### renderer
 To help you get things to look good quickly, we added some rendering functions you can use:
 - **facts**  Use this with any paragraph that has a child node called 'facts'
+- **paragraph**  Use this with any paragraph that has a child node called 'raw'
 
 ## Basic Examples
 ### Example 1: HTML paragraph
@@ -68,29 +69,3 @@ Time zone:	ICT (UTC +7)
 ```
 1
 ```
-
-## Understand Our Documents
-### Documents
-
-### Paraghraphs
-
-### Facts
-
-## How Information is Structured
-### Program
-
-### Location
-
-### Arrival Information
-
-### Departure Information
-
-### Holidays
-
-### Country
-
-### Contacts & Addresses
-
-### Starting Dates
-
-### 
