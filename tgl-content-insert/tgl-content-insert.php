@@ -33,3 +33,5 @@ include ('tgl-content-insert-options.php');
 
 //shortcodes
 include ('shortcodes/tgl-insert.php');
+include ('shortcodes/tgl-login.php');
+include ('shortcodes/tgl-verify.php');
