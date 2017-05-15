@@ -34,6 +34,9 @@ Find the full description on our [Github Repository](https://github.com/the-gree
 = 0.7 =
 * Upgraded to latest TGL API Client Library
 
+= 0.8 =
+* Self Service Area added
+
 == Upgrade Notice ==
 
 = 0.5 =
@@ -46,3 +49,6 @@ Initial release. Handle with caution.
 
 = 0.7 =
 * Upgraded to latest TGL API Client Library
+
+= 0.8 =
+* Self Service Area added

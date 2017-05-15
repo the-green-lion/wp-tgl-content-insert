@@ -16,7 +16,7 @@
  * Plugin Name:       TGL Content Insert
  * Plugin URI:        thegreenlion.net
  * Description:       Gives you an easy way to add The Green Lion's program descriptions to your website. No more copy-paste, no more keeping them updated by hand.
- * Version:           0.7.0
+ * Version:           0.8.0
  * Author:            Bernhard Gessler
  * Author URI:        thegreenlion.net
  * License:           MIT
