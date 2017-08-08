@@ -7,9 +7,14 @@ function tgl_shortcode_insert($atts, $content = null)
     // Load options
     $settings = get_option('tgl_settings');
     $setting_api_key = $settings['tgl_api_key'];
-    $setting_show_errors = $settings['tgl_show_errors'];
-    $setting_hide_from_search = $settings['tgl_hide_from_search'];
-    
+
+    $setting_api_key = '';
+    $setting_show_errors = false;
+    $setting_hide_from_search = false;
+    if (array_key_exists ( 'tgl_api_key' , $settings )) { $setting_api_key = $settings['tgl_api_key']; }
+    if (array_key_exists ( 'tgl_show_errors' , $settings )) { $setting_show_errors = $settings['tgl_show_errors']; }
+    if (array_key_exists ( 'tgl_hide_from_search' , $settings )) { $setting_hide_from_search = $settings['tgl_hide_from_search']; }
+
     // Hide from search engines, if chosen
     if ($setting_hide_from_search && isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/bot|crawl|slurp|spider/i', $_SERVER['HTTP_USER_AGENT'])) {
         return '';
