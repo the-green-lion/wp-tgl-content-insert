@@ -17,6 +17,7 @@ class TglApiClient
     public $token = null;
     private $tokenFirebase = null;
     private $firebaseClient = null;
+    public $userId = null;
 
     private $urlEndpointBookings = "https://api.thegreenlion.net/bookings%s?auth=%s%s";
 
@@ -32,18 +33,64 @@ class TglApiClient
           return FALSE;
         }
 
+        $result = $this->loadUserFirebase();
+        if ($result === FALSE) { 
+          return FALSE;
+        }        
+
         return true;
     }
 
     private function signInTgl($apiKey)
     {
+        /*//  Initiate curl
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json', 'Content-Length: 0'));
+        curl_setopt($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17');
+        curl_setopt($ch, CURLOPT_AUTOREFERER, true); 
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+
+        // Disable SSL verification
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        // Will return the response, if false it print the response
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Set the url
+        curl_setopt($ch, CURLOPT_URL,"https://api.thegreenlion.net/user/".$apiKey."/authenticate");
+        
+        // Execute
+        echo curl_exec($ch);
+        $payload = curl_exec($ch);
+        //$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        //error_log( 'Payload' );
+        //error_log( $payload );
+        //error_log( 'Error Code' );
+        //error_log( $code );
+        //$infoFull = curl_getinfo($ch);
+        //error_log( 'CURL Info' );
+        //error_log( json_encode($infoFull) );
+        $errorFull = curl_error($ch);
+        error_log( 'CURL Error' );
+        error_log( $errorFull );
+
+        // Closing
+        curl_close($ch);*/
+
         // use key 'http' even if you send the request to https://...
         $options = array(
             'http' => array(
                 'header'  => "Content-type: application/json\r\nContent-Length: 0\r\n",
                 'method'  => 'POST',
                 'content' => ""
-            )
+            ),
+            "ssl"=>array(
+                "verify_peer"=>false,
+                "verify_peer_name"=>false,
+            ),
         );
 
         $context  = stream_context_create($options);
@@ -86,12 +133,46 @@ class TglApiClient
         return TRUE;
     }
 
-    private function loadUserFirebase($token)
+    private function loadUserFirebase()
     {
+        $url = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo?key=".self::$FIREBASE_KEY;
+        $data = array('idToken' => $this->tokenFirebase);
+        
+        // use key 'http' even if you send the request to https://...
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/json\r\n",
+                'method'  => 'POST',
+                'content' => json_encode($data)
+            )
+        );
+
+        $context  = stream_context_create($options);
+        $payload = file_get_contents($url, false, $context);
+        if ($payload === FALSE) { 
+          return FALSE;
+        }
+
+        $result = json_decode($payload);
+        $this->userId = $result->users[0]->localId;
+
+        return TRUE;
     }
 
     
-    // Get a specific country by its ID
+    // Get the IDs of all documents of a type
+    public function listDocuments($documentType) {
+        
+        $userData = json_decode($this->firebaseClient->get('users/'.$this->userId));
+        $ids = $this->firebaseClient->get('permissions/'.$userData->agentId.'/'.$documentType);
+        if($ids === FALSE) {
+          return FALSE;
+        }
+        
+       return array_keys((array)json_decode($ids));
+    }
+    
+    // Get a specific document by its ID
     public function getDocument($id) {
         return json_decode($this->firebaseClient->get('content/'.$id));
     }
