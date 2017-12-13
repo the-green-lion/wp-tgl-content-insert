@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== TGL Content Insert ===
 Contributors: thegreenlion
 Tags: TGL
 Requires at least: 4.0
@@ -37,6 +37,9 @@ Find the full description on our [Github Repository](https://github.com/the-gree
 = 0.8 =
 * Self Service Area added
 
+= 0.9 =
+* Stability improved
+
 == Upgrade Notice ==
 
 = 0.5 =
@@ -52,3 +55,6 @@ Initial release. Handle with caution.
 
 = 0.8 =
 * Self Service Area added
+
+= 0.9 =
+* Stability improved
