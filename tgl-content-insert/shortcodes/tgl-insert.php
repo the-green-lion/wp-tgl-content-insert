@@ -6,12 +6,15 @@ function tgl_shortcode_insert($atts, $content = null)
 {
     // Load options
     $settings = get_option('tgl_settings');
-    $setting_api_key = $settings['tgl_api_key'];
+    //$setting_api_key = $settings['tgl_api_key'];
+    //$setting_api_secret = $settings['tgl_api_key'];
 
     $setting_api_key = '';
+    $setting_api_secret = '';
     $setting_show_errors = false;
     $setting_hide_from_search = false;
     if (array_key_exists ( 'tgl_api_key' , $settings )) { $setting_api_key = $settings['tgl_api_key']; }
+    if (array_key_exists ( 'tgl_api_secret' , $settings )) { $setting_api_secret = $settings['tgl_api_secret']; }
     if (array_key_exists ( 'tgl_show_errors' , $settings )) { $setting_show_errors = $settings['tgl_show_errors']; }
     if (array_key_exists ( 'tgl_hide_from_search' , $settings )) { $setting_hide_from_search = $settings['tgl_hide_from_search']; }
 
@@ -42,7 +45,7 @@ function tgl_shortcode_insert($atts, $content = null)
     if( !$documentString ) {
         
         $client = new TglApiClient();
-        $client->signInWithApiKey($setting_api_key);
+        $client->signIn($setting_api_key, $setting_api_secret);
 
         $document = $client->getDocument($atts['id']);
         

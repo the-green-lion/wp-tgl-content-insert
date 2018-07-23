@@ -29,6 +29,14 @@ function tgl_settings_init(  ) {
 	);
 
 	add_settings_field( 
+		'tgl_api_secret', 
+		__( 'Your TGL API secret', 'wordpress' ), 
+		'tgl_api_secret_render', 
+		'pluginPage', 
+		'tgl_pluginPage_section' 
+	);
+
+	add_settings_field( 
 		'tgl_hide_from_search', 
 		__( 'Hide From Search Engines', 'wordpress' ), 
 		'tgl_hide_from_search_render', 
@@ -53,10 +61,19 @@ function tgl_api_key_render(  ) {
 	$options = get_option( 'tgl_settings' );
 	?>
 	<textarea cols='50' rows='1' name='tgl_settings[tgl_api_key]'><?php echo $options['tgl_api_key']; ?></textarea><br>
-    <small>To obtain an API key, contact <a href="mailto:bernhard@thegreenlion.net">the Green Lion team</a>. Keep this key secret, it is only for you.</small>
 	<?php
 
 }
+
+function tgl_api_secret_render(  ) { 
+	
+		$options = get_option( 'tgl_settings' );
+		?>
+		<textarea cols='50' rows='1' name='tgl_settings[tgl_api_secret]'><?php echo $options['tgl_api_secret']; ?></textarea><br>
+		<small>To obtain API credentials, contact <a href="mailto:bernhard@thegreenlion.net">the Green Lion team</a>. Keep these credentials secret, these are only for you.</small>
+		<?php
+	
+	}
 
 
 function tgl_hide_from_search_render(  ) { 
