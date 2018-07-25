@@ -3,7 +3,7 @@
 add_action( 'wp_enqueue_scripts', 'register_tgl_login_script' );
 
 function register_tgl_login_script() {
-    wp_register_script( 'tgl-login-js', plugins_url( '/scripts/tgl_shortcode_login.js' , dirname(__FILE__) ), array(), '1.0.0', true );
+    wp_register_script( 'tgl-login-js', plugins_url( '/scripts/tgl_shortcode_login.js' , dirname(__FILE__) ), array(), '1.1.0', true );
 }
 
 /////////////////////////////////////////////////////////title/////////////////////////////////////////

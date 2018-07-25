@@ -42,7 +42,7 @@ function verifyDocument(code) {
     // Load content to be displayed
     jQuery.ajax({
         type: "GET",
-        url: "https://api.thegreenlion.net/selfservice/code/" + code + "/verify",
+        url: "https://apps.thegreenlion.net/selfservice/code/" + code + "/verify",
         crossDomain: true,
         success: function(html){
             jQuery(".self_service").html(html);

@@ -50,7 +50,7 @@ function loadMyBooking(bookingId, hash) {
     // Load content to be displayed
     jQuery.ajax({
         type: "GET",
-        url: "https://api.thegreenlion.net/selfservice/" + bookingId + "/" + hash + "/content",
+        url: "https://apps.thegreenlion.net/selfservice/booking/" + bookingId + "/" + hash + "/content",
         crossDomain: true,
         success: function(html){
             jQuery(".self_service").html(html);

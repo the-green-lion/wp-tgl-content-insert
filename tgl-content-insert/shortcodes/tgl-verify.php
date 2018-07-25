@@ -3,7 +3,7 @@
 add_action( 'wp_enqueue_scripts', 'register_tgl_verify_script' );
 
 function register_tgl_verify_script() {
-    wp_register_script( 'tgl-verify-js', plugins_url( '/scripts/tgl_shortcode_verify.js' , dirname(__FILE__) ), array(), '1.0.0', true );
+    wp_register_script( 'tgl-verify-js', plugins_url( '/scripts/tgl_shortcode_verify.js' , dirname(__FILE__) ), array(), '1.1.0', true );
 }
 
 /////////////////////////////////////////////////////////title/////////////////////////////////////////
