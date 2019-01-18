@@ -2,7 +2,7 @@
 Contributors: thegreenlion
 Tags: TGL
 Requires at least: 4.0
-Tested up to: 4.7
+Tested up to: 5.0.3
 Stable tag: trunk
 License: MIT
 License URI: https://opensource.org/licenses/MIT
@@ -40,6 +40,10 @@ Find the full description on our [Github Repository](https://github.com/the-gree
 = 0.9 =
 * Stability improved
 
+= 0.10 =
+* Stability improved
+* Updated dependencies
+
 == Upgrade Notice ==
 
 = 0.5 =
@@ -58,3 +62,7 @@ Initial release. Handle with caution.
 
 = 0.9 =
 * Stability improved
+
+= 0.10 =
+* Stability improved
+* Updated dependencies

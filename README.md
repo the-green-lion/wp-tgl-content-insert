@@ -7,7 +7,8 @@ You may also be interested in our [JS](https://github.com/the-green-lion/tgl-api
 
 ##Dependencies
 This library depends on the following projects:
-- eelkevdbos/firebase-php [github](https://github.com/eelkevdbos/firebase-php/releases/tag/0.1.3)
+- ktamas77/firebase-php [github](https://github.com/ktamas77/firebase-php/)
+- the-green-lion/tgl-api-client-php [github](https://github.com/the-green-lion/tgl-api-client-php)
 - the-green-lion/tgl-api-client-js [github](https://github.com/the-green-lion/tgl-api-client-js)
 
 ##Installation
